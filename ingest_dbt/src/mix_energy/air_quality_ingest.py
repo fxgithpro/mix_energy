@@ -137,13 +137,13 @@ def get_atmo_index(
 
     date_str = date_jour or date.today().isoformat()
     log.info(
-        f"Plage de récupération des données ATMO : date={date_str}, date_historique={date_histo}, code_insee={code_insee}, aasqa={aasqa}"
+        f"Plage de récupération des données ATMO : date={date_str}, date_historique={date_histo}, code_zone={code_insee}, aasqa={aasqa}"
     )
     params = {
         "format": "geojson",
         "date": date_str,
         "date_historique": date_histo,
-        "code_insee": code_insee,
+        "code_zone": code_insee,
         "aasqa": aasqa,
     }
     headers = {"accept": "*/*", "Authorization": f"Bearer {jwt_token}"}
