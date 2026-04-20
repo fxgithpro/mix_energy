@@ -17,6 +17,8 @@ mix_energy
 
 ### Structure module ingest_dbt
 
+Module fournissant des outils pour l'extraction des données sources, la sauvegarde des données brutes dans un bucket avant de les charger dans BigQuery
+
 README [>>](./ingest_dbt/README.md)
 
 ```
@@ -55,6 +57,8 @@ README [>>](./ingest_dbt/README.md)
 
 ### Structure module predict
 
+Module pour la création, l'entrainement d'un modèle de ML afin de réaliser des prédictions sur la consommation d'énergie nationale ou régionales des 15 prochaines minutes
+
 README [>>](./predict/README.md)
 
 ```
@@ -75,6 +79,8 @@ README [>>](./predict/README.md)
 ```
 
 ### Structure module fastapi
+
+Application définissant des API REST pour permettre l'accès aux données transformées dans le dataset ou réaliser une prédiction sur la consommation d'énergie à venir
 
 README [>>](./fastapi/README.md)
 
@@ -99,29 +105,78 @@ README [>>](./fastapi/README.md)
 
 ### Structure pipeline dbt
 
+Projet DBT qui gère la transformation et l'agrégation des données pour produire des tables silver et gold
+
 README [>>](./dbt/README.md)
 
 ```
-├── dbt
-│   ├── README.md
-│   ├── dbt_project.yml
-│   ├── models
-│   │   ├── gold
-│   │   │   ├── kpi.sql
-│   │   │   ├── nat_cons_agre_j.sql
-│   │   │   ├── nat_tr_agre_j.sql
-│   │   │   ├── nat_tr_predi.sql
-│   │   │   ├── reg_cons_agre_j.sql
-│   │   │   ├── reg_tr_agre_j.sql
-│   │   │   └── reg_tr_predi.sql
-│   │   └── silver
-│   │       ├── eco2mix_national_cons_def_histo.sql
-│   │       ├── eco2mix_regional_cons_def_histo.sql
-│   │       └── schema.yml
-│   └── profiles.yml.exemple
+dbt
+├── dbt_packages
+├── dbt_project.yml
+├── logs
+├── models
+│   ├── gold
+│   │   ├── kpi_reg.sql
+│   │   ├── kpi.sql
+│   │   ├── nat_cons_agre_j.sql
+│   │   ├── nat_tr_agre_j.sql
+│   │   ├── nat_tr_predi.sql
+│   │   ├── reg_cons_agre_j.sql
+│   │   ├── reg_tr_agre_j.sql
+│   │   └── reg_tr_predi.sql
+│   ├── mix_energie_indice_docs.md
+│   ├── mix_energie_region_docs.md
+│   ├── silver
+│   │   ├── airquality_cons_reg_histo.sql
+│   │   ├── eco2mix_national_cons_def_histo.sql
+│   │   ├── eco2mix_regional_cons_def_histo.sql
+│   │   ├── meteo_cons_reg_histo.sql
+│   │   ├── schema.yml
+│   │   └── _stg_silver_cons_def_histo.yml
+│   └── staging
+│       ├── air_quality
+│       │   ├── schema.yml
+│       │   ├── stg_air_quality_bordeaux.sql
+│       │   ├── stg_air_quality_caen.sql
+│       │   ├── stg_air_quality_dijon.sql
+│       │   ├── stg_air_quality_lille.sql
+│       │   ├── stg_air_quality_lyon.sql
+│       │   ├── stg_air_quality_marseille.sql
+│       │   ├── stg_air_quality_nantes.sql
+│       │   ├── stg_air_quality_orleans.sql
+│       │   ├── stg_air_quality_paris.sql
+│       │   ├── stg_air_quality_rennes.sql
+│       │   ├── stg_air_quality_strasbourg.sql
+│       │   ├── stg_air_quality_toulouse.sql
+│       │   └── _stg_air_quality.yml
+│       └── meteo
+│           ├── schema.yml
+│           ├── stg_meteo_bordeaux.sql
+│           ├── stg_meteo_caen.sql
+│           ├── stg_meteo_dijon.sql
+│           ├── stg_meteo_lille.sql
+│           ├── stg_meteo_lyon.sql
+│           ├── stg_meteo_marseille.sql
+│           ├── stg_meteo_nantes.sql
+│           ├── stg_meteo_orleans.sql
+│           ├── stg_meteo_paris.sql
+│           ├── stg_meteo_rennes.sql
+│           ├── stg_meteo_strasbourg.sql
+│           ├── stg_meteo_toulouse.sql
+│           └── _stg_meteo.yml
+├── profiles.yml.exemple
+├── README.md
+├── seeds
+│   ├── cities.csv
+│   └── properties.yml
+└── target
 ```
 
 ### Structure module airflow
+
+Application définissant des tâches programmées pour
+- Soit extraire les données sources et les injecter dans BigQuery avant de lancer leur transformation au sein du Datawarehouse
+- Soit effectuer l'entrainement des modèles de prédiction de la consommation d'énergie
 
 README [>>](./airflow/README.md)
 
@@ -144,6 +199,8 @@ README [>>](./airflow/README.md)
 ```
 
 ### Structure application Streamlit
+
+Application Web affichant des dashboard produits à partir des données transformées en utilisant les API REST présentées par l'application FastAPI
 
 README [>>](./front-streamlit/README.md)
 
